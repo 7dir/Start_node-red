@@ -1,0 +1,12 @@
+{
+    "name": "On_start",
+    "description": "Стартовый проект",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "start.json",
+            "credentialsFile": "start_cred.json"
+        }
+    }
+}
