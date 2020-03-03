@@ -5,7 +5,7 @@
     of the files in it otherwise the old versions will ALWAYS be used.
 <html lang="en" manifest="./uibuilder.appcache">
 -->
-<html lang="en">
+<html lang="ru">
 <!--
     This is the default, template html for uibuilder.
     It is meant to demonstrate the use of VueJS & bootstrap-vue to dynamically
@@ -55,24 +55,8 @@
     <div id="app" v-cloak>
         <b-container id="app_container">
             <b-img src="./images/node-blue-192x192.png" rounded left v-bind="imgProps" alt="Blue Node-RED" class="mt-1 mr-2"></b-img>
-            <h1>
-                UIbuilder + Vue.js + bootstrap-vue for Node-RED
-            </h1>
-            <p>
-                This is a uibuilder example using <a href="https://vuejs.org/">Vue.js</a> as a front-end library.
-                See the
-                <a
-                    href="https://github.com/TotallyInformation/node-red-contrib-uibuilder">node-red-contrib-uibuilder</a>
-                README for details on how to use UIbuilder.
-            </p>
 
-            <h2>Simple input using Vue</h2>
             <b-form class="border p-3 m-2">
-                <p>
-                    You can very simply create a form using Vue & bootstrap-vue.
-                    The form sends data back to Node-RED.
-                    Look at the <code>increment</code> method in <code>index.js</code> to see how easy this is.
-                </p>
                 <p>
                     <b-form-input v-model="inputText" type="text" placeholder="Enter some text to send to Node-RED"></b-form-input><br>
                     <b-form-checkbox v-model="inputChkBox">
