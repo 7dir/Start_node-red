@@ -28,6 +28,10 @@ var app1 = new Vue({
         feVersion   : '',
         counterBtn  : 0,
         inputText   : null,
+        psaux       : 'test psAux',
+        netstat_listen: 'netstat_listen',
+        intrs       : [],
+        pstree      : 'pstree',
         inputChkBox : false,
         socketConnectedState : false,
         serverTimeOffset     : '[unknown]',
@@ -67,11 +71,37 @@ var app1 = new Vue({
         },
     }, // --- End of computed --- //
     methods: {
+        start_scripts:function(event) {
+            var topic = this.msgRecvd.topic || 'uibuilder/vue'
+            uibuilder.send( {
+                'topic': topic,
+                'payload': {
+                    'start_scripts': true
+                }
+            } )            
+        },
         increment: function(event) {
             console.log('Button Pressed. Event DatA: ', event)
 
             // Increment the count by one
             this.counterBtn = this.counterBtn + 1
+            var topic = this.msgRecvd.topic || 'uibuilder/vue'
+            uibuilder.send( {
+                'topic': topic,
+                'payload': {
+                    'type': 'counterBtn',
+                    'btnCount': this.counterBtn,
+                    'message': this.inputText,
+                    'inputChkBox': this.inputChkBox
+                }
+            } )
+
+        }, // --- End of increment --- //
+        sendstate: function(event) {
+            console.log('Button Pressed. Event DatA: ', event)
+
+            // Increment the count by one
+            // this.counterBtn = this.counterBtn + 1
             var topic = this.msgRecvd.topic || 'uibuilder/vue'
             uibuilder.send( {
                 'topic': topic,
@@ -133,23 +163,41 @@ var app1 = new Vue({
         // If msg changes - msg is updated when a standard msg is received from Node-RED over Socket.IO
         // newVal relates to the attribute being listened to.
         uibuilder.onChange('msg', function(newVal){
-            //console.info('[indexjs:uibuilder.onChange] msg received from Node-RED server:', newVal)
+            // console.info('[indexjs:uibuilder.onChange] msg received from Node-RED server:', newVal)
+            console.info(newVal.payload)
+            
+            if (newVal.topic=="intr") {
+                vueApp.intrs=newVal.payload
+            }
+            if (newVal.topic=="netstat_listen") {
+                // vueApp.intrs=newVal.payload
+                vueApp.netstat_listen=newVal.payload
+            }
+            if (newVal.topic=="pstree") {
+                // vueApp.intrs=newVal.payload
+                vueApp.pstree=newVal.payload
+            }
+            
+            // if ( newVal.payload.hasOwnProperty('psAux') ) { console.info(newVal.payload.psAux) }
+            // if (_.has(newVal.payload, 'netstat')) { console.info(newVal.payload.netstat) }
+            // vueApp.psAux = newVal.payload.psAux
+            // vueApp.netstat = newVal.payload.netstat
             vueApp.msgRecvd = newVal
         })
         // As we receive new messages, we get an updated count as well
         uibuilder.onChange('msgsReceived', function(newVal){
-            //console.info('[indexjs:uibuilder.onChange] Updated count of received msgs:', newVal)
+            console.info('[indexjs:uibuilder.onChange] Updated count of received msgs:', newVal)
             vueApp.msgsReceived = newVal
         })
 
         // If we receive a control message from Node-RED, we can get the new data here - we pass it to a Vue variable
         uibuilder.onChange('ctrlMsg', function(newVal){
-            //console.info('[indexjs:uibuilder.onChange:ctrlMsg] CONTROL msg received from Node-RED server:', newVal)
+            // console.info('[indexjs:uibuilder.onChange:ctrlMsg] CONTROL msg received from Node-RED server:', newVal)
             vueApp.msgCtrl = newVal
         })
         // Updated count of control messages received
         uibuilder.onChange('msgsCtrl', function(newVal){
-            //console.info('[indexjs:uibuilder.onChange:msgsCtrl] Updated count of received CONTROL msgs:', newVal)
+            // console.info('[indexjs:uibuilder.onChange:msgsCtrl] Updated count of received CONTROL msgs:', newVal)
             vueApp.msgsControl = newVal
         })
         //#endregion ---- End of Trace Received Messages ---- //
