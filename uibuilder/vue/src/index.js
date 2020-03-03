@@ -167,7 +167,10 @@ var app1 = new Vue({
             console.info(newVal.payload)
             
             if (newVal.topic=="intr") {
-                vueApp.intrs=newVal.payload
+                // vueApp.intrs=newVal.payload
+                // var array = [1, 2, 3];
+                 _.fill(vueApp.intrs, newVal.payload);
+                 
             }
             if (newVal.topic=="netstat_listen") {
                 // vueApp.intrs=newVal.payload
@@ -186,7 +189,7 @@ var app1 = new Vue({
         })
         // As we receive new messages, we get an updated count as well
         uibuilder.onChange('msgsReceived', function(newVal){
-            console.info('[indexjs:uibuilder.onChange] Updated count of received msgs:', newVal)
+            // console.info('[indexjs:uibuilder.onChange] Updated count of received msgs:', newVal)
             vueApp.msgsReceived = newVal
         })
 
