@@ -1,1 +1,591 @@
-[]
+[
+    {
+        "id": "9eb9a55d.09f148",
+        "type": "tab",
+        "label": "Main",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fccabebd.bad7c",
+        "type": "subflow",
+        "name": "Network",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 160,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "8f1e50c4.531ba"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 660,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "8f1e50c4.531ba",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "host",
+                "type": "str",
+                "value": "195.133.197.70"
+            },
+            {
+                "name": "user",
+                "type": "str",
+                "value": "root"
+            },
+            {
+                "name": "pass",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "sudo",
+                "type": "bool",
+                "value": "true"
+            }
+        ],
+        "color": "#DDAA99"
+    },
+    {
+        "id": "34afbfef.b9631",
+        "type": "subflow",
+        "name": "interfaces",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 50,
+                "y": 30,
+                "wires": [
+                    {
+                        "id": "7def101c.ab224"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 520,
+                "y": 60,
+                "wires": [
+                    {
+                        "id": "99ca60d0.93c9f",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "color": "#DDAA99"
+    },
+    {
+        "id": "fc0f9bda.8d5ed8",
+        "type": "subflow",
+        "name": "PStree",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 100,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "2f434a00.8be526"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 480,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "2f434a00.8be526",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "color": "#DDAA99"
+    },
+    {
+        "id": "e0d5334d.42c1b",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "8a4a8bd6.309758",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "e0d5334d.42c1b",
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "4ed30107.274f2",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "be40d949.2eaf78",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "be40d949.2eaf78",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Shell script",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a117f90a.8a09a8",
+        "type": "subflow:fccabebd.bad7c",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "env": [],
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "7c67f7f6.1654e8"
+            ]
+        ]
+    },
+    {
+        "id": "8f1e50c4.531ba",
+        "type": "exec",
+        "z": "fccabebd.bad7c",
+        "command": "netstat -antpu | grep \"LISTEN\" | grep -v tcp6 | netstat2json.rb 1,2,3,4,5,6,7,8 Proto,Recv-Q,Send-Q,Local,Foreign,State,PID/Program,args",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1",
+        "oldrc": false,
+        "name": "netstat -antpu",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "82fd82ab.75c53"
+            ],
+            [],
+            []
+        ],
+        "info": "netstat -antpu | grep 'LISTEN'\nnetstat -antpu | grep 'LISTEN\\|udp' | sort -t: -k1\nnetstat -antpu | grep \"LISTEN\" | grep -v tcp6 | netstat2json.rb 1,2,3,4,5,6,7,8 Proto,Recv-Q,Send-Q,Local,Foreign,State,PID/Program,args"
+    },
+    {
+        "id": "e7428f32.93e27",
+        "type": "inject",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "a117f90a.8a09a8",
+                "2851831d.61ec6c",
+                "5e4f9fe7.3e39d"
+            ]
+        ]
+    },
+    {
+        "id": "7c67f7f6.1654e8",
+        "type": "json",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 160,
+        "wires": [
+            [
+                "2aa4283b.be6198"
+            ]
+        ]
+    },
+    {
+        "id": "39cc7a1d.bd9166",
+        "type": "http in",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "url": "/listen",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7415b45d.c9d15c",
+        "type": "http response",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8389d8f2.df81e8",
+        "type": "debug",
+        "z": "fccabebd.bad7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 790,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "82fd82ab.75c53",
+        "type": "json",
+        "z": "fccabebd.bad7c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 590,
+        "y": 100,
+        "wires": [
+            [
+                "8389d8f2.df81e8"
+            ]
+        ]
+    },
+    {
+        "id": "62b1e995.2d0138",
+        "type": "inject",
+        "z": "fccabebd.bad7c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 280,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb50bae5.cba718",
+        "type": "uibuilder",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "topic": "",
+        "url": "d3netstat",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "showfolder": false,
+        "x": 960,
+        "y": 40,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6715cca8.ba4f74",
+        "type": "uibuilder",
+        "z": "9eb9a55d.09f148",
+        "name": "vuejs",
+        "topic": "",
+        "url": "vue",
+        "fwdInMessages": false,
+        "allowScripts": true,
+        "allowStyles": true,
+        "copyIndex": true,
+        "showfolder": true,
+        "x": 930,
+        "y": 240,
+        "wires": [
+            [
+                "6ce3ab32.475a74"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3ef4ab90.82ccf4",
+        "type": "comment",
+        "z": "9eb9a55d.09f148",
+        "name": "add pstree iproute ",
+        "info": "https://habr.com/ru/post/320278/",
+        "x": 990,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c039b17.5d6df5",
+        "type": "comment",
+        "z": "9eb9a55d.09f148",
+        "name": "ip address",
+        "info": "ip -c link | awk -F ': ' '{print($2)}'",
+        "x": 380,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2851831d.61ec6c",
+        "type": "subflow:34afbfef.b9631",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "x": 380,
+        "y": 400,
+        "wires": [
+            [
+                "8de128b1.e88df8"
+            ]
+        ]
+    },
+    {
+        "id": "8de128b1.e88df8",
+        "type": "split",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "splt": ",",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "splitout",
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "bc871162.94f3e"
+            ]
+        ]
+    },
+    {
+        "id": "7def101c.ab224",
+        "type": "exec",
+        "z": "34afbfef.b9631",
+        "command": "ip address | grep inet | grep -v \"::\" | sed 's#    ##g'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1",
+        "oldrc": false,
+        "name": "Iinterfaces",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "99ca60d0.93c9f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "99ca60d0.93c9f",
+        "type": "csv",
+        "z": "34afbfef.b9631",
+        "name": "",
+        "sep": " ",
+        "hdrin": "",
+        "hdrout": "",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "proto,adr,type,namesp,intr",
+        "skip": "0",
+        "strings": false,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bc871162.94f3e",
+        "type": "function",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "func": "msg.topic = \"intr\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 400,
+        "wires": [
+            [
+                "6715cca8.ba4f74"
+            ]
+        ]
+    },
+    {
+        "id": "2aa4283b.be6198",
+        "type": "function",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "func": "msg.topic = \"netstat_listen\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 160,
+        "wires": [
+            [
+                "6715cca8.ba4f74"
+            ]
+        ]
+    },
+    {
+        "id": "2f434a00.8be526",
+        "type": "exec",
+        "z": "fc0f9bda.8d5ed8",
+        "command": "pstree -aptSuUZ",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1",
+        "oldrc": false,
+        "name": "pstree",
+        "x": 270,
+        "y": 160,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5e4f9fe7.3e39d",
+        "type": "subflow:fc0f9bda.8d5ed8",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "28ca07a9.dbbb48"
+            ]
+        ]
+    },
+    {
+        "id": "28ca07a9.dbbb48",
+        "type": "function",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "func": "msg.topic = \"pstree\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 280,
+        "wires": [
+            [
+                "6715cca8.ba4f74"
+            ]
+        ]
+    },
+    {
+        "id": "9187783.5cfd088",
+        "type": "comment",
+        "z": "9eb9a55d.09f148",
+        "name": "LISTEN",
+        "info": "",
+        "x": 370,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ecf909c0.b01068",
+        "type": "comment",
+        "z": "9eb9a55d.09f148",
+        "name": "ascii pstree",
+        "info": "",
+        "x": 390,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6ce3ab32.475a74",
+        "type": "link out",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "links": [
+            "302efb5d.2f64f4"
+        ],
+        "x": 1035,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "302efb5d.2f64f4",
+        "type": "link in",
+        "z": "9eb9a55d.09f148",
+        "name": "",
+        "links": [
+            "6ce3ab32.475a74"
+        ],
+        "x": 55,
+        "y": 400,
+        "wires": [
+            [
+                "1c486bfe.3a3bb4"
+            ]
+        ]
+    },
+    {
+        "id": "1c486bfe.3a3bb4",
+        "type": "function",
+        "z": "9eb9a55d.09f148",
+        "name": "start_scripts",
+        "func": "if (msg.payload.start_scripts) {\n    return msg;    \n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 400,
+        "wires": [
+            [
+                "5e4f9fe7.3e39d",
+                "2851831d.61ec6c",
+                "a117f90a.8a09a8"
+            ]
+        ]
+    }
+]
