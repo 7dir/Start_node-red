@@ -4,7 +4,7 @@
         "type": "tab",
         "label": "Main",
         "disabled": false,
-        "info": ""
+        "info": "https://habr.com/ru/post/320278/"
     },
     {
         "id": "fccabebd.bad7c",
@@ -284,12 +284,12 @@
         "z": "9eb9a55d.09f148",
         "name": "vuejs",
         "topic": "",
-        "url": "vue",
+        "url": "start",
         "fwdInMessages": false,
         "allowScripts": true,
         "allowStyles": true,
         "copyIndex": true,
-        "showfolder": true,
+        "showfolder": false,
         "x": 930,
         "y": 240,
         "wires": [
