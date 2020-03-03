@@ -189,9 +189,7 @@
         "x": 380,
         "y": 160,
         "wires": [
-            [
-                "82fd82ab.75c53"
-            ],
+            [],
             [],
             []
         ],
@@ -260,55 +258,6 @@
         "x": 710,
         "y": 40,
         "wires": []
-    },
-    {
-        "id": "8389d8f2.df81e8",
-        "type": "debug",
-        "z": "fccabebd.bad7c",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 790,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "82fd82ab.75c53",
-        "type": "json",
-        "z": "fccabebd.bad7c",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 590,
-        "y": 100,
-        "wires": [
-            [
-                "8389d8f2.df81e8"
-            ]
-        ]
-    },
-    {
-        "id": "62b1e995.2d0138",
-        "type": "inject",
-        "z": "fccabebd.bad7c",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 280,
-        "y": 60,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "bb50bae5.cba718",
